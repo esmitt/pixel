@@ -17,8 +17,7 @@ jobs:
           IMAGE_TAG=$(date +%s)
           docker build . --file Dockerfile --tag pixel-app-production:$IMAGE_TAG
 
-      - name: Run tests (volume mount)
+      - name: Run tests
         working-directory: backend
         run: |
-          docker run --rm pixel-app-production:$IMAGE_TAG pytest --verbose -v=::host 
-          # -v=::host maps the host's working directory to /app within the container
+          docker run --rm -it pixel-app-production:${{ steps.Build_the_Docker_image.outputs.container }} pytest --verbose -v=::host
