@@ -11,9 +11,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Build and Test
+      - name: Build the Docker image
         working-directory: backend
         run: |
           IMAGE_TAG=$(date +%s)
           docker build . --file Dockerfile --tag pixel-app-production:$IMAGE_TAG
-          docker run --rm -it pixel-app-production:$IMAGE_TAG pytest --verbose
+
+      - name: Run tests (volume mount)
+        working-directory: backend
+        run: |
+          docker run --rm pixel-app-production:$IMAGE_TAG pytest --verbose -v=::host 
+          # -v=::host maps the host's working directory to /app within the container
