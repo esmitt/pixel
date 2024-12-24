@@ -1,5 +1,5 @@
 # Stage 1: Build and install dependencies
-FROM python:3.13-slim-buster AS build
+FROM python:3.13-slim AS build
 
 WORKDIR /app
 
@@ -16,7 +16,7 @@ WORKDIR /app
 RUN pytest --verbose
 
 # Stage 3: Build production image
-FROM python:3.13-slim-buster AS production
+FROM python:3.13-slim AS production
 
 WORKDIR /app
 
