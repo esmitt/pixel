@@ -15,6 +15,7 @@ jobs:
     - name: Set working directory
       run: |
         echo "Current directory before changing: $(pwd)"
+        ls -l
         cd backend
         echo "Current directory after changing: $(pwd)"
 
