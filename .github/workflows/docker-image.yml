@@ -11,14 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Set Image Tag
-        run: |
-          echo "::set-output name=IMAGE_TAG::$(date +%s)"
-      - name: Build the Docker image
+      - name: Build and Test
         working-directory: backend
         run: |
-          docker build . --file Dockerfile --tag pixel-app-production:${{ steps.Set_Image_Tag.outputs.IMAGE_TAG }}
-      - name: Run tests
-        working-directory: backend
-        run: |
-          docker run --rm pixel-app-production:${{ steps.Set_Image_Tag.outputs.IMAGE_TAG }}
+          IMAGE_TAG=$(date +%s)
+          docker build . --file Dockerfile --tag pixel-app-production:$IMAGE_TAG
+          docker run --rm pixel-app-production:$IMAGE_TAG
