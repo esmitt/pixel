@@ -11,18 +11,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Build the Docker image
+      - name: Build and Test
         working-directory: backend
         run: |
           IMAGE_TAG=$(date +%s)
-          docker build . --file Dockerfile --tag pixel-app-production:$IMAGE_TAG
-
-  test:
-    runs-on: ubuntu-latest
-    needs: build  # This job depends on the 'build' job
-    steps:
-      - uses: actions/checkout@v4
-      - name: Run tests
-        working-directory: backend
-        run: |
-          docker run --rm -v "$(pwd)":/app pixel-app-production:${{ jobs.build.steps.Build_the_Docker_image.outputs.container }} pytest --verbose
+          docker build . --file Dockerfile --tag pixel-app-production:$IMAGE_TAG && \
+          cd .. && \
+          docker run --rm -v "$(pwd)":/app pixel-app-production:$IMAGE_TAG pytest --verbose
