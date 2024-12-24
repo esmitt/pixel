@@ -13,7 +13,7 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Set working directory
-      run: cd backend  # Change this to your desired working directory
+      run: cd backend
 
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag pixel-app:$(date +%s)
+      run: docker build . --tag pixel-app:$(date +%s)
