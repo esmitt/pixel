@@ -20,4 +20,4 @@ jobs:
       - name: Run tests
         working-directory: backend
         run: |
-          docker run --rm -it pixel-app-production:${{ steps.Build_the_Docker_image.outputs.container }} pytest --verbose -v=::host
+          docker run --rm -v $(pwd):/app pixel-app-production:$IMAGE_TAG pytest --verbose
