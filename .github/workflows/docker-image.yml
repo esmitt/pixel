@@ -16,4 +16,5 @@ jobs:
         run: |
           IMAGE_TAG=$(date +%s)
           docker build . --file Dockerfile --tag pixel-app-production:$IMAGE_TAG && \
+          cd .. \
           docker run --rm -v "$(pwd)":/app pixel-app-production:$IMAGE_TAG pytest --verbose
