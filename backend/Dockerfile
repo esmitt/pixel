@@ -23,7 +23,8 @@ WORKDIR /app
 COPY --from=build /app/requirements.txt .
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
-COPY --from=build /app/app .
+#COPY --from=build /app/app .
+COPY . .
 
 EXPOSE 8000
 
