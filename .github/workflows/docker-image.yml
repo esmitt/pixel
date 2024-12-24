@@ -11,13 +11,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Build the Docker image
-        working-directory: backend
+      - name: Build and Test
+        working_directory: backend
         run: |
           IMAGE_TAG=$(date +%s)
-          docker build . --file Dockerfile --tag pixel-app-production:$IMAGE_TAG
-
-      - name: Run tests
-        working-directory: backend
-        run: |
+          docker build . --file Dockerfile --tag pixel-app-production:$IMAGE_TAG && \
           docker run --rm -v "$(pwd)":/app pixel-app-production:$IMAGE_TAG pytest --verbose
