@@ -9,14 +9,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-    working-directory: backend
-
     steps:
-    - uses: actions/checkout@v4
-    - name: List files in directory
-      run: ls -l
-
-    - name: Build the Docker image
-      run: |
-        echo "Building Docker image..."
-        docker build . --tag pixel-app:$(date +%s)
+      - uses: actions/checkout@v4
+      - name: Build the Docker image
+        working-directory: backend
+        run: |
+          docker build . --tag pixel-app:$(date +%s)
