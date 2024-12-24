@@ -9,16 +9,10 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    working-directory: backend
 
     steps:
     - uses: actions/checkout@v4
-    - name: Set working directory
-      run: |
-        echo "Current directory before changing: $(pwd)"
-        ls -l
-        cd backend
-        echo "Current directory after changing: $(pwd)"
-
     - name: List files in directory
       run: ls -l
 
