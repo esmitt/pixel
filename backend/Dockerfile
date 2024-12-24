@@ -1,27 +1,29 @@
-# --- Stage 1: Install dependencies and run tests ---
-FROM python:3.13-slim AS test
+# Stage 1: Build and install dependencies
+FROM python:3.13-slim-buster AS build
 
-WORKDIR /pixel/backend
+WORKDIR /app
 
 COPY requirements.txt requirements.txt
-
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
 COPY . .
 
-# Run tests using the pytest.ini configuration
+# Stage 2: Run tests
+FROM build AS test
+
+WORKDIR /app
+
 RUN pytest --verbose
 
-# --- Stage 2: Build the production image ---
-FROM python:3.13-slim
+# Stage 3: Build production image
+FROM python:3.13-slim-buster AS production
 
-WORKDIR /pixel/backend
+WORKDIR /app
 
-COPY requirements.txt requirements.txt
-
+COPY --from=build /app/requirements.txt .
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
-COPY app ./app
+COPY --from=build /app/app .
 
 EXPOSE 8000
 
