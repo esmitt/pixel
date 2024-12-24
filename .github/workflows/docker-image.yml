@@ -13,7 +13,15 @@ jobs:
     steps:
     - uses: actions/checkout@v4
     - name: Set working directory
-      run: cd backend
+      run: |
+        echo "Current directory before changing: $(pwd)"
+        cd backend
+        echo "Current directory after changing: $(pwd)"
+
+    - name: List files in directory
+      run: ls -l
 
     - name: Build the Docker image
-      run: docker build . --tag pixel-app:$(date +%s)
+      run: |
+        echo "Building Docker image..."
+        docker build . --tag pixel-app:$(date +%s)
