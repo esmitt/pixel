@@ -1,4 +1,5 @@
 import sys
+import uvicorn
 from fastapi import FastAPI
 
 app = FastAPI()
@@ -7,5 +8,6 @@ app = FastAPI()
 async def root():
     return {"message": "Hello Pixel"}
 
-# if __name__ == "__main__":
-#     print(sys.path)
+if __name__ == "__main__":
+    print(sys.path)
+    uvicorn.run(app, host="0.0.0.0", port=8001)
