@@ -1,0 +1,10 @@
+[MASTER]
+disable=missing-docstring, too-many-arguments, line-too-long
+enable=consider-using-with
+output-format=parseable
+verbose=y
+good-names=run, setup, _
+max-line-length=80
+
+# Exclude test files from linting
+ignore=backend/tests
